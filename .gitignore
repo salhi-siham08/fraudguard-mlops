@@ -1,0 +1,11 @@
+# Données (trop lourdes pour GitHub)
+creditcard.csv
+*.csv
+
+# Environnement Python
+.venv/
+__pycache__/
+
+# Sorties générées
+mlruns/
+*.duckdb
