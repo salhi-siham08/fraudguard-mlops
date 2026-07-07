@@ -59,7 +59,7 @@ Principales découvertes :
   obligatoire, évaluation par précision, rappel, F1 et AUC-ROC
 - **1 081 doublons** détectés (0,38 %) → déduplication dans la couche staging dbt
 - **Le taux de fraude triple la nuit** : 0,474 % entre 0h et 6h contre ~0,11-0,15 % en journée
-- **Les fraudes sont des petits montants** : médiane 9,25 contre 22,00 pour les transactions normales
+- **Les fraudes sont des petits montants** : médiane 9,25 contre 22,00 pour les transactions normales.
 - **Features les plus discriminantes** : V17, V14, V12, V10
 - Aucune valeur manquante
 
