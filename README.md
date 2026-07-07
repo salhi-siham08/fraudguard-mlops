@@ -140,14 +140,14 @@ fraudguard-mlops/
 
 | Membre | Rôle | Périmètre |
 |---|---|---|
-| *À compléter* | Product Owner | Vision, backlog, user stories |
-| *À compléter* | Scrum Master | Sprints, rituels agiles, tests |
-| *À compléter* | Data Engineer | Ingestion dlt + DuckDB |
-| *À compléter* | Data Engineer | Transformations dbt + qualité |
-| *À compléter* | Data Engineer | Orchestration Dagster |
-| *À compléter* | ML Engineer | Modèle + MLflow |
-| *À compléter* | ML Engineer / DevOps | FastAPI + Docker + CI/CD |
-| Siham SALHI | Data Analyst | EDA ✅ + Monitoring + Documentation |
+| Hasnae EL MIR      | Product Owner | Vision, backlog, user stories |
+| Hiba WAFI          | Scrum Master | Sprints, rituels agiles, tests |
+| khansaa balakrafas | Data Engineer | Ingestion dlt + DuckDB |
+| salma zamakhchari  | Data Engineer | Transformations dbt + qualité |
+| Ibtissam ESSADIKI  | Data Engineer | Orchestration Dagster |
+| chaimaa AFESS      | ML Engineer | Modèle + MLflow |
+| Oumaima TALBI      | ML Engineer / DevOps | FastAPI + Docker + CI/CD |
+| Siham SALHI        | Data Analyst | EDA ✅ + Monitoring + Documentation |
 
 ## 🔀 Workflow de collaboration
 
