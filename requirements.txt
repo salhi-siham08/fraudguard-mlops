@@ -5,3 +5,5 @@ matplotlib>=3.7
 seaborn>=0.13
 jupyter
 ipykernel
+dlt>=1.28
+duckdb>=1.5
