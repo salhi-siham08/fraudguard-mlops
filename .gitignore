@@ -1,8 +1,10 @@
 # Données (trop lourdes pour GitHub)
 creditcard.csv
 *.csv
+data/
 
 # Environnement Python
+venv/
 .venv/
 __pycache__/
 
