@@ -1,5 +1,6 @@
 import subprocess
-import sys
+import webbrowser
+import time
 
 commands = [
     ["dbt", "debug"],
@@ -9,16 +10,12 @@ commands = [
 ]
 
 for command in commands:
-    print("\n" + "=" * 60)
-    print("Exécution :", " ".join(command))
-    print("=" * 60)
+    subprocess.run(command, check=True)
 
-    result = subprocess.run(command)
+print("Ouverture de la documentation...")
 
-    if result.returncode != 0:
-        print(f"\nErreur lors de l'exécution de : {' '.join(command)}")
-        sys.exit(result.returncode)
+subprocess.Popen(["dbt", "docs", "serve"])
 
-print("\nToutes les étapes dbt ont été exécutées avec succès !")
-print("Pour consulter la documentation, exécute ensuite :")
-print("dbt docs serve")
+time.sleep(3)
+
+webbrowser.open("http://localhost:8080")
