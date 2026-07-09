@@ -1,0 +1,100 @@
+version: 2
+
+models:
+  - name: fct_transactions_ml
+    description: "Final mart table containing engineered features for Machine Learning."
+    columns:
+      - name: transaction_id
+        description: "Unique identifier of the transaction."
+        tests: [not_null, unique]
+
+      - name: transaction_time
+        description: "Time elapsed in seconds since the first transaction."
+        tests: [not_null]
+
+      - name: transaction_hour_abs
+        description: "Elapsed hour from the beginning of the dataset."
+        tests: [not_null]
+
+      - name: transaction_hour
+        description: "Hour of the day extracted from transaction_time, from 0 to 23."
+        tests: [not_null]
+
+      - name: is_night
+        description: "Binary feature: 1 if transaction occurred between 00:00 and 05:59, else 0."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: amount
+        description: "Original transaction amount."
+        tests: [not_null]
+
+      - name: amount_log
+        description: "Log-transformed amount using ln(amount + 1)."
+        tests: [not_null]
+
+      - name: class
+        description: "Prediction target: 0 = normal transaction, 1 = fraud."
+        tests:
+          - not_null
+          - accepted_values:
+              values: [0, 1]
+
+      - name: v1
+        description: "Anonymized PCA feature V1."
+      - name: v2
+        description: "Anonymized PCA feature V2."
+      - name: v3
+        description: "Anonymized PCA feature V3."
+      - name: v4
+        description: "Anonymized PCA feature V4."
+      - name: v5
+        description: "Anonymized PCA feature V5."
+      - name: v6
+        description: "Anonymized PCA feature V6."
+      - name: v7
+        description: "Anonymized PCA feature V7."
+      - name: v8
+        description: "Anonymized PCA feature V8."
+      - name: v9
+        description: "Anonymized PCA feature V9."
+      - name: v10
+        description: "Anonymized PCA feature V10."
+      - name: v11
+        description: "Anonymized PCA feature V11."
+      - name: v12
+        description: "Anonymized PCA feature V12."
+      - name: v13
+        description: "Anonymized PCA feature V13."
+      - name: v14
+        description: "Anonymized PCA feature V14, important according to EDA."
+      - name: v15
+        description: "Anonymized PCA feature V15."
+      - name: v16
+        description: "Anonymized PCA feature V16."
+      - name: v17
+        description: "Anonymized PCA feature V17, important according to EDA."
+      - name: v18
+        description: "Anonymized PCA feature V18."
+      - name: v19
+        description: "Anonymized PCA feature V19."
+      - name: v20
+        description: "Anonymized PCA feature V20."
+      - name: v21
+        description: "Anonymized PCA feature V21."
+      - name: v22
+        description: "Anonymized PCA feature V22."
+      - name: v23
+        description: "Anonymized PCA feature V23."
+      - name: v24
+        description: "Anonymized PCA feature V24."
+      - name: v25
+        description: "Anonymized PCA feature V25."
+      - name: v26
+        description: "Anonymized PCA feature V26."
+      - name: v27
+        description: "Anonymized PCA feature V27."
+      - name: v28
+        description: "Anonymized PCA feature V28."

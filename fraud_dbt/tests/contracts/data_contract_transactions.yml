@@ -1,0 +1,116 @@
+version: 1
+
+data_contract:
+  name: fraud_transactions_contract
+  owner: person_4_data_engineer_transformations_quality
+  description: "Data contract for transformed credit card fraud transactions used by the ML pipeline."
+
+  source:
+    database: fraud_ingestion.duckdb
+    raw_schema: raw
+    raw_table: transactions
+
+  models:
+    - name: stg_transactions
+      type: staging
+      description: "Typed and renamed transaction data from raw.transactions."
+      required_columns:
+        - transaction_id
+        - transaction_time
+        - amount
+        - class
+      constraints:
+        - transaction_id must be not null and unique
+        - class must be in [0, 1]
+        - amount must be greater than or equal to 0
+
+    - name: fct_transactions_ml
+      type: mart
+      description: "Final ML feature table for fraud detection."
+      required_columns:
+        - transaction_id
+        - transaction_time
+        - transaction_hour_abs
+        - transaction_hour
+        - is_night
+        - amount
+        - amount_log
+        - class
+      constraints:
+        - transaction_id must be not null and unique
+        - transaction_hour must be between 0 and 23
+        - is_night must be in [0, 1]
+        - class must be in [0, 1]
+        - amount must be greater than or equal to 0
+
+  columns:
+    - name: transaction_id
+      type: integer
+      nullable: false
+      unique: true
+      description: "Unique transaction identifier."
+
+    - name: transaction_time
+      type: double
+      nullable: false
+      description: "Time elapsed in seconds since the first transaction."
+
+    - name: transaction_hour_abs
+      type: double
+      nullable: false
+      description: "Elapsed hour from the beginning of the dataset."
+
+    - name: transaction_hour
+      type: double
+      nullable: false
+      allowed_range: [0, 23]
+      description: "Hour of the day extracted from transaction_time."
+
+    - name: is_night
+      type: integer
+      nullable: false
+      allowed_values: [0, 1]
+      description: "Night transaction indicator."
+
+    - name: amount
+      type: double
+      nullable: false
+      min_value: 0
+      description: "Original transaction amount."
+
+    - name: amount_log
+      type: double
+      nullable: false
+      description: "Log-transformed transaction amount."
+
+    - name: class
+      type: integer
+      nullable: false
+      allowed_values: [0, 1]
+      description: "Target variable: 0 normal, 1 fraud."
+
+    - name: v1_to_v28
+      type: double
+      nullable: false
+      description: "Anonymized PCA features from the original dataset."
+
+  quality_rules:
+    - rule: no_null_transaction_id
+      description: "transaction_id must never be null."
+    - rule: unique_transaction_id
+      description: "Each transaction must have one unique identifier."
+    - rule: accepted_class_values
+      description: "class must contain only 0 or 1."
+    - rule: positive_amount
+      description: "amount must be greater than or equal to 0."
+    - rule: accepted_is_night_values
+      description: "is_night must contain only 0 or 1."
+
+  consumers:
+    - person_6_ml_engineer
+    - person_5_dagster_orchestration
+
+  validation_tools:
+    - dbt run
+    - dbt test
+    - dbt docs generate
