@@ -11,3 +11,7 @@ __pycache__/
 # Sorties générées
 mlruns/
 *.duckdb
+#ml p6 
+__pycache__/
+mlflow.db
+mlartifacts/
