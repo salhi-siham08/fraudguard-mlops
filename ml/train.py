@@ -1,25 +1,7 @@
 """
 train.py - Entrainement des modeles de detection de fraude
-Personne 6 - ML Engineer (Livrables 5 + 6)
+Personne 6 - ML Engineer
 
-Integre les conclusions EDA de P8 :
-- Doublons supprimes avant l'entrainement (verifie empiriquement que dbt/P4 ne
-  deduplique pas reellement malgre le commentaire dans son SQL : 284 807 lignes
-  dans la table alors que 1081 doublons avaient ete detectes par P8)
-- Desequilibre extreme (0.173% de fraude) -> SMOTE ET class_weight compares
-- Split stratifie obligatoire
-- RobustScaler sur amount (asymetrique, outliers) -> integre dans un Pipeline
-- Feature heure / nuit (fraude 3-4x plus frequente la nuit), deja calculees par P4
-- Evaluation : precision, rappel, F1, AUC-ROC (jamais l'accuracy seule)
-- Feature importance (RandomForest / XGBoost) pour valider les colonnes
-  discriminantes identifiees par P8 (V17, V14, V12, V10...)
-
-Source de donnees : table main.fct_transactions_ml produite par le pipeline dbt
-de P4 (colonnes transaction_time/amount/class/v1..v28/transaction_hour/is_night/
-amount_log), lue directement depuis le fichier DuckDB.
-
-Usage:
-    python train.py --data-path ../fraud_ingestion.duckdb --tracking-uri http://localhost:5000
 """
 
 import argparse
@@ -70,16 +52,7 @@ DROP_COLS = ["class", "transaction_id", "transaction_time", "transaction_hour_ab
 # ---------------------------------------------------------------------------
 
 def load_and_clean_data(path: str) -> pd.DataFrame:
-    """
-    path = chemin vers fraud_ingestion.duckdb (table main.fct_transactions_ml,
-    nettoyee/transformee par P4, mais PAS dedoublonnee -> on le fait ici).
-
-    NB: transaction_id est un row_number() genere par dbt, donc unique pour
-    CHAQUE ligne meme quand toutes les autres colonnes sont identiques.
-    On l'exclut du subset, sinon duplicated()/drop_duplicates() ne trouve
-    jamais rien (confirme empiriquement : 0 doublon detecte avec l'ID,
-    1081 sans l'ID -> coherent avec l'EDA de P8).
-    """
+   
     con = duckdb.connect(path)
     df = con.sql("SELECT * FROM main.fct_transactions_ml").df()
     con.close()
