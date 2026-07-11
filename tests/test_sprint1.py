@@ -19,3 +19,8 @@ def test_dbt_setup_exists():
 def test_eda_notebook_exists():
     """Vérifier que le notebook d'analyse de Siham est présent"""
     assert os.path.exists("01_eda_fraude_v2.ipynb"), "Le notebook EDA est introuvable !"
+def test_data_ingested():
+    """Vérifier si les données brutes sont présentes dans le projet"""
+    import os
+    # On vérifie si le CSV ou la base DuckDB existe
+    assert os.path.exists("creditcard.csv") or os.path.exists("fraudguard.db"), "Data non ingérée !"
