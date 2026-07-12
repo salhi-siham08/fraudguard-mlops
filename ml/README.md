@@ -25,8 +25,6 @@ ml/
 ├── train.py              # Script principal : entraînement + logging MLflow
 ├── evaluate.py           # Validation du modèle en production
 ├── artifacts/            # Graphiques exportés (ROC, Confusion Matrix)
-├── mlartifacts/          # Stockage local des modèles (Artefacts MLflow , Généré localement, ignoré par Git)
-├── requirements.txt      # Dépendances spécifiques au module
 └── README.md             # Présente documentation
 ```
 
